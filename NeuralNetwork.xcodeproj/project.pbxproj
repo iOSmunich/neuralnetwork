@@ -10,14 +10,23 @@
 		84DA319B1CDB7A9900C090AE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DA319A1CDB7A9900C090AE /* AppDelegate.swift */; };
 		84DA319D1CDB7A9900C090AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84DA319C1CDB7A9900C090AE /* Assets.xcassets */; };
 		84DA31A01CDB7A9900C090AE /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84DA319E1CDB7A9900C090AE /* MainMenu.xib */; };
+		84DA31A81CDB7ABA00C090AE /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DA31A71CDB7ABA00C090AE /* Util.swift */; };
+		84DA31AA1CDB7AE800C090AE /* NeuralNet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DA31A91CDB7AE800C090AE /* NeuralNet.swift */; };
+		84DA31AC1CDB7AF000C090AE /* Neuron.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DA31AB1CDB7AF000C090AE /* Neuron.swift */; };
+		84DA31AE1CDB7AFE00C090AE /* Layer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DA31AD1CDB7AFE00C090AE /* Layer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		84DA31971CDB7A9900C090AE /* NeuralNetwork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NeuralNetwork.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		84DA319A1CDB7A9900C090AE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		84DA319A1CDB7A9900C090AE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AppDelegate.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		84DA319C1CDB7A9900C090AE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		84DA319F1CDB7A9900C090AE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		84DA31A11CDB7A9900C090AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84DA31A71CDB7ABA00C090AE /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Util.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		84DA31A91CDB7AE800C090AE /* NeuralNet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = NeuralNet.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		84DA31AB1CDB7AF000C090AE /* Neuron.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Neuron.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		84DA31AD1CDB7AFE00C090AE /* Layer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Layer.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		84DA31AF1CDB8B1E00C090AE /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +60,11 @@
 			isa = PBXGroup;
 			children = (
 				84DA319A1CDB7A9900C090AE /* AppDelegate.swift */,
+				84DA31A71CDB7ABA00C090AE /* Util.swift */,
+				84DA31AF1CDB8B1E00C090AE /* MyPlayground.playground */,
+				84DA31A91CDB7AE800C090AE /* NeuralNet.swift */,
+				84DA31AB1CDB7AF000C090AE /* Neuron.swift */,
+				84DA31AD1CDB7AFE00C090AE /* Layer.swift */,
 				84DA319C1CDB7A9900C090AE /* Assets.xcassets */,
 				84DA319E1CDB7A9900C090AE /* MainMenu.xib */,
 				84DA31A11CDB7A9900C090AE /* Info.plist */,
@@ -129,6 +143,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				84DA319B1CDB7A9900C090AE /* AppDelegate.swift in Sources */,
+				84DA31A81CDB7ABA00C090AE /* Util.swift in Sources */,
+				84DA31AE1CDB7AFE00C090AE /* Layer.swift in Sources */,
+				84DA31AC1CDB7AF000C090AE /* Neuron.swift in Sources */,
+				84DA31AA1CDB7AE800C090AE /* NeuralNet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -271,6 +289,7 @@
 				84DA31A61CDB7A9900C090AE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
