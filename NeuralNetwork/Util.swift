@@ -115,18 +115,11 @@ func getPartialDerivate(val:Double) -> Double {
 //calc error sum
 func calcTotalError(vec0:[Double],vec1:[Double]) -> Double {
     
-    guard vec0.count == vec1.count else {
-        fatalError("err: vec0 count != vec1 count")
-    }
+    let difVec = vec0 - vec1
     
-    var sumErr = 0.0
-    for idx in 0..<vec0.count {
-        let partialErr = vec1[idx] - vec0[idx]
-        let quadartErr = pow(partialErr, 2)
-        sumErr += quadartErr
-    }
-    
-    return sumErr * 0.5
+    return 0.5 * difVec.reduce(0.0, combine: { (quadSum, itemVal) -> Double in
+        return quadSum + itemVal*itemVal
+    })
 }
 
 
