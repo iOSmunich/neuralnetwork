@@ -13,7 +13,7 @@ import GameKit
 // MARK: print functions
 
 func debug_print(items:Any...) {
-//    Swift.print(items)
+    //    Swift.print(items)
 }
 
 
@@ -39,12 +39,12 @@ func - (left:[Double],right:[Double]) -> [Double] {
     
     
     var res = [Double].init(count: left.count, repeatedValue: 0.0)
-
+    
     for idx in 0..<res.count {
         res[idx] = left[idx] - right[idx]
     }
     
-
+    
     return res
 }
 
@@ -69,15 +69,24 @@ func - (left:[Int],right:[Int]) -> [Int] {
 
 ////////////////////////////////////////////////////////////////////////
 // MARK: random functions
-let gauss = GKGaussianDistribution(lowestValue: -100, highestValue: 100)
+let gaussDistribution = GKGaussianDistribution(lowestValue: -100, highestValue: 100)
 
 
 func randomGaussFloat()->Double{
     
-    let res = gauss.nextUniform()
+    let res = gaussDistribution.nextUniform()
     return Double(res)
 }
 
+let distributionMin1Max1 = GKRandomDistribution(lowestValue: -100, highestValue: 100)
+func randomDouble() -> Double {
+    return Double(distributionMin1Max1.nextUniform())
+}
+
+let distributionMin0Max1 = GKRandomDistribution(lowestValue: 0, highestValue: 100)
+func randomPositivDouble() -> Double {
+    return Double(distributionMin0Max1.nextUniform())
+}
 
 
 func randomPositivGaussFloat() ->Double{
@@ -205,6 +214,13 @@ func / (l:Int,r:Double) -> Double {
     return Double(l) / r
 }
 
+
+
+extension Int {
+    var doubleValue:Double {
+        return Double(self)
+    }
+}
 
 
 

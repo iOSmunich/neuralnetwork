@@ -9,9 +9,9 @@
 import Cocoa
 
 
-let net_topology = [10,4]
+let net_topology = [4,4,4,4,4]
 let learn_rate = 0.1
-
+let training_loop = 50000
 var _stopTraining = true
 
 
@@ -52,7 +52,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         _stopTraining = false
         
         trainingBtn.enabled = false
-        for _ in 1...500000 {
+        for _ in 1...training_loop {
             
             if _stopTraining  {
                 trainingBtn.enabled = true
@@ -98,8 +98,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let y3 = x1 | x2
         let y4 = (x1 + x2)%2
         
-        let _inputs = [Double(x1),Double(x2)]
-        let _target = [Double(y1),Double(y2),Double(y3),Double(y4)]
+        
+        
+        
+        let _inputs = [x1.doubleValue,x2.doubleValue]
+        let _target = [y1.doubleValue,y2.doubleValue,y3.doubleValue,y4.doubleValue]
         
         _neuralNet.setInputs (_inputs)
         _neuralNet.setTargets(_target)
@@ -109,4 +112,24 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         _stopTraining = true
     }
 }
+
+
+func normalRandom(mean:Double = 0, variance:Double = 1) -> Double {
+    var v1: Double, v2: Double, s: Double;
+    repeat {
+        v1 = randomGaussFloat()
+        v2 = randomGaussFloat()
+        s = v1 * v1 + v2 * v2;
+    } while (s > 1);
+    
+    let result = sqrt(-2 * log(s) / s) * v1;
+    return mean + sqrt(variance) * result;
+}
+
+
+
+
+
+
+
 

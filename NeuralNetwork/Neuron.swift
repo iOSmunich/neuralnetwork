@@ -72,7 +72,7 @@ class Neuron {
         weights = Array.init(count: self.inputs.count, repeatedValue: 0.0)
         
         for idx in 0..<weights.count {
-            weights[idx] = randomGaussFloat()
+            weights[idx] = randomDouble()
         }
         
         debug_print("l",layerIndex,"n",index," weights:"+weights,"bias:"+bias)
