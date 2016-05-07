@@ -16,8 +16,8 @@ class Neuron {
     // variables
     
     var layer:Layer!
-    var layerIndex  = -1
-    var index       = -1
+    var layerIndex  = -1 as Int
+    var index       = -1 as Int
     
     
     
@@ -25,11 +25,11 @@ class Neuron {
     
     
     private (set) var inputs:[Double]!
-    private (set) var output = 0.0 //use setOutput!
+    private (set) var output:Double = 0.0 //use setOutput!
     
     private (set) var weights:[Double]!
     private (set) var bias:Double = 0.0
-    private (set) var net_sum = 0.0
+    private (set) var net_sum:Double = 0.0
     
     
     
@@ -48,12 +48,9 @@ class Neuron {
         
         //calc sum and activation
         net_sum = calcSum(inputs, vec1: weights) + bias
-        let _output = sigmoid(net_sum)
+        let _output = activation(net_sum)
         setOutput(_output)
     }
-    
-    
-    
     
     
     func setOutput(val:Double) {
@@ -75,12 +72,11 @@ class Neuron {
             weights[idx] = randomDouble()
         }
         
-        debug_print("l",layerIndex,"n",index," weights:"+weights,"bias:"+bias)
     }
     
     
     //////////////////////////////////
-    // update gradient    
+    // update gradient
     func setTarget(tar:Double) {
         target = tar
     }
@@ -90,12 +86,12 @@ class Neuron {
     func updateWeights() {
         
         //update net2out_grad
-        gradient = out2target_grad() * output * ( 1 - output)
+        gradient = out2target_grad() * derivate(output)
         
         
         //update each weight
         for idx in 0..<weights.count {
-        
+            
             let weight2target_grad  = gradient * inputs[idx]
             let weight_delta        = learn_rate  * weight2target_grad
             
@@ -115,43 +111,48 @@ class Neuron {
         
         
         //if output neuron
-        if isOutputNeuron() {
+        if isOutputNeuron {
             return (output - target)
         }
         
         
         //else hidden neuron
-        var tmp_sum = 0.0
-        for nn in outputNeurons {
-            
-            tmp_sum += nn.gradient * nn.weights[self.index]
-        }
+        return outputNeurons.reduce(0.0, combine: { (sum, node) -> Double in
+            return sum + node.gradient * node.weights[self.index]
+        })
         
-        return tmp_sum
     }
     
     
-    func isOutputNeuron() -> Bool {
-        
-        if layer.hasNextLayer {
-            return false
-        }
-        
-        return true
+    
+    var isOutputNeuron:Bool     { return !layer.hasNextLayer }
+    var outputNeurons:[Neuron]  { return  layer.nextLayer!.neurons }
+    var fastSigmoid:FastSigmoid!
+    
+    
+    //sigmoid activation
+    func activation(val:Double) -> Double {
+        return fastSigmoid.activation(val)
     }
     
-    
-    var outputNeurons:[Neuron]  {
-        return  layer.nextLayer!.neurons
+    //partial derivate of sigmoid function
+    func derivate(f:Double) -> Double {
+        return fastSigmoid.derivate(f)
     }
-    
     
 }
 
-
-
-
-
+////sigmoid activation
+//func activation(val:Double) -> Double {
+//    return 1.0 / (1.0 + exp(-val))
+//    
+//}
+//
+//
+////partial derivate of sigmoid function
+//func derivate(f:Double) -> Double {
+//    return f * (1.0 - f)
+//}
 
 
 

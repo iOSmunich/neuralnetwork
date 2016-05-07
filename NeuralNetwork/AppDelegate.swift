@@ -9,10 +9,10 @@
 import Cocoa
 
 
-let net_topology = [8,5]
-let learn_rate = 0.3
-let training_loop = 10000
-var _stopTraining = true
+let net_topology    = [8,8,8,8,8,5]
+let learn_rate      = 0.1
+let training_loop   = 10000000
+var _stopTraining   = true
 
 
 
@@ -36,15 +36,35 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             
         }
         
+        
+        print("\n")
+        
+        var hits = _neuralNet.fastSigmoid.activatnHit
+        var reads = _neuralNet.fastSigmoid.activatnReadCount
+        var hitsRate:Float = Float(hits)/Float(reads)
+        
+        print("cache hits rate:",hitsRate)
+        
+        
+        hits = _neuralNet.fastSigmoid.derivateHit
+        reads = _neuralNet.fastSigmoid.derivateReadCount
+        
+        hitsRate = Float(hits)/Float(reads)
+        
+        print("cache hits rate:",hitsRate)
+        
     }
     
     
     @IBOutlet weak var trainingBtn:NSButton!
     @IBAction func startTraining(_:AnyObject) {
         
-        performSelectorInBackground(#selector(training), withObject: nil)
-        
+        let thread = NSThread(target: self, selector: #selector(training), object: nil)
+        thread.threadPriority = 0.0
+        thread.start()
     }
+    
+    
     
     
     func training() {
@@ -63,6 +83,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             self.generateTest()
             self._neuralNet.starBP()
             
+            
         }
         
         let net = self._neuralNet
@@ -74,6 +95,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         trainingBtn.enabled = true
         
     }
+    
+    
+    
+    
+    
     
     @IBAction func calcTest(_:AnyObject) {
         generateTest()

@@ -15,11 +15,7 @@ class Layer {
     //////////////////////////////////
     // variables
     
-    var index = -1 {
-        didSet {
-            debug_print("layer:",index," did set")
-        }
-    }
+    var index = -1
     var layers:[Layer]!
     
     
@@ -59,7 +55,6 @@ class Layer {
     // set inputs outputs
     func setInputs(inputs:[Double]) {
         self.inputs = inputs
-        debug_print("\nlayer:",index,"inputs:"+inputs)
         
         //calc
         setNeuronsInputs()
@@ -96,10 +91,7 @@ class Layer {
         
         if hasPreLayer {
             preLayer?.updateWeights()
-        } else {
-            debug_print("bp end!")
-        }
-        
+        }        
     }
     
     

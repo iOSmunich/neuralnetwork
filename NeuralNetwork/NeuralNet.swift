@@ -21,7 +21,8 @@ class NeuralNet {
     var inputLayer:Layer { return layers.first! }
     var outputLayer:Layer { return layers.last! }
     
-    
+    let fastSigmoid:FastSigmoid = FastSigmoid()
+
     
     private (set) var  inputs:[Double]!
     private (set) var outputs:[Double]!
@@ -52,6 +53,8 @@ class NeuralNet {
                 nn.layerIndex = layerIdx
                 nn.index = nnIndex
                 nn.layer = ll
+                
+                nn.fastSigmoid = self.fastSigmoid
             }
         }
         
@@ -70,7 +73,6 @@ class NeuralNet {
     func setOutputs() {
         
         self.outputs = outputLayer.outputs
-        debug_print("\nnet outputs:"+outputs)
         
     }
     
@@ -87,7 +89,6 @@ class NeuralNet {
     
     func starBP() {
         if self.targets == nil {
-            debug_print("targets not set!")
             return
         }
         
@@ -103,6 +104,7 @@ class NeuralNet {
         
     }
     
+
 }
 
 
