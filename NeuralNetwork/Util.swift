@@ -69,22 +69,21 @@ func - (left:[Int],right:[Int]) -> [Int] {
 
 ////////////////////////////////////////////////////////////////////////
 // MARK: random functions
-let gaussDistribution = GKGaussianDistribution(lowestValue: -100, highestValue: 100)
 
 
 func randomGaussFloat()->Double{
-    
+    let gaussDistribution = GKGaussianDistribution(lowestValue: -100, highestValue: 100)
     let res = gaussDistribution.nextUniform()
     return Double(res)
 }
 
-let distributionMin1Max1 = GKRandomDistribution(lowestValue: -100, highestValue: 100)
 func randomDouble() -> Double {
+    let distributionMin1Max1 = GKRandomDistribution(lowestValue: -100, highestValue: 100)
     return Double(distributionMin1Max1.nextUniform())
 }
 
-let distributionMin0Max1 = GKRandomDistribution(lowestValue: 0, highestValue: 100)
 func randomPositivDouble() -> Double {
+    let distributionMin0Max1 = GKRandomDistribution(lowestValue: 0, highestValue: 100)
     return Double(distributionMin0Max1.nextUniform())
 }
 

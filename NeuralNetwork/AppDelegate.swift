@@ -9,9 +9,9 @@
 import Cocoa
 
 
-let net_topology = [4,4,4,4,4]
-let learn_rate = 0.1
-let training_loop = 50000
+let net_topology = [8,5]
+let learn_rate = 0.3
+let training_loop = 10000
 var _stopTraining = true
 
 
@@ -93,16 +93,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         let x1 = random() % 2
         let x2 = random() % 2
-        let y1 = x1 ^ x2
-        let y2 = x1 & x2
-        let y3 = x1 | x2
-        let y4 = (x1 + x2)%2
         
+        let y1 = x1 ^ x2 // xor
+        let y2 = x1 & x2 // and
+        let y3 = x1 | x2 // or
+        let y4 = (x1 + x2)%2 //sum
+        
+        let y5 = x1 > 0 ? 0.0 : 1.0 //not
         
         
         
         let _inputs = [x1.doubleValue,x2.doubleValue]
-        let _target = [y1.doubleValue,y2.doubleValue,y3.doubleValue,y4.doubleValue]
+        let _target = [y1.doubleValue,y2.doubleValue,y3.doubleValue,y4.doubleValue,y5]
         
         _neuralNet.setInputs (_inputs)
         _neuralNet.setTargets(_target)
@@ -111,19 +113,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBAction func stopTraining(sender: AnyObject) {
         _stopTraining = true
     }
-}
-
-
-func normalRandom(mean:Double = 0, variance:Double = 1) -> Double {
-    var v1: Double, v2: Double, s: Double;
-    repeat {
-        v1 = randomGaussFloat()
-        v2 = randomGaussFloat()
-        s = v1 * v1 + v2 * v2;
-    } while (s > 1);
-    
-    let result = sqrt(-2 * log(s) / s) * v1;
-    return mean + sqrt(variance) * result;
 }
 
 
