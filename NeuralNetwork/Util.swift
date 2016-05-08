@@ -37,8 +37,7 @@ func - (left:[Double],right:[Double]) -> [Double] {
         fatalError("err: vec0 count != vec1 count")
     }
     
-    
-    var res = [Double].init(count: left.count, repeatedValue: 0.0)
+    var res = [Double](count: left.count, repeatedValue: 0.0)
     
     for idx in 0..<res.count {
         res[idx] = left[idx] - right[idx]
@@ -47,6 +46,8 @@ func - (left:[Double],right:[Double]) -> [Double] {
     
     return res
 }
+
+
 
 func - (left:[Int],right:[Int]) -> [Int] {
     
@@ -126,7 +127,7 @@ func calcTotalError(vec0:[Double],vec1:[Double]) -> Double {
     let difVec = vec0 - vec1
     
     return 0.5 * difVec.reduce(0.0, combine: { (quadSum, itemVal) -> Double in
-        return quadSum + itemVal*itemVal
+        return quadSum + itemVal * itemVal
     })
 }
 

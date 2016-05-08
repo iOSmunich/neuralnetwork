@@ -22,13 +22,13 @@ class NeuralNet {
     var outputLayer:Layer { return layers.last! }
     
     let fastSigmoid:FastSigmoid = FastSigmoid()
-
+    
     
     private (set) var  inputs:[Double]!
     private (set) var outputs:[Double]!
     private (set) var targets:[Double]!//use setOutputs!
     
-    private (set) var err_sum: Double!//use setOutputs!
+    private (set) var err_sum: Double! //use setOutputs!
     private (set) var epoche:Int = 0
     
     
@@ -81,8 +81,9 @@ class NeuralNet {
         
         self.targets = targets
         
+        self.outputs = outputLayer.outputs
         err_sum = calcTotalError(targets, vec1: outputs)
-          
+        
     }
     
     
@@ -93,7 +94,7 @@ class NeuralNet {
         }
         
         epoche += 1
-
+        
         //set target for output layer
         for idx in 0..<targets.count {
             let nn = outputLayer.neurons[idx]
@@ -104,7 +105,7 @@ class NeuralNet {
         
     }
     
-
+    
 }
 
 

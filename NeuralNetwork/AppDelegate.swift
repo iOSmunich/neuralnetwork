@@ -9,7 +9,7 @@
 import Cocoa
 
 
-let net_topology    = [8,8,8,8,8,5]
+let net_topology    = [8,80,5]
 let learn_rate      = 0.1
 let training_loop   = 10000000
 var _stopTraining   = true
@@ -35,29 +35,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
             
         }
-        
-        
-        print("\n")
-        
-        var hits = _neuralNet.fastSigmoid.activatnHit
-        var reads = _neuralNet.fastSigmoid.activatnReadCount
-        var hitsRate:Float = Float(hits)/Float(reads)
-        
-        print("cache hits rate:",hitsRate)
-        
-        
-        hits = _neuralNet.fastSigmoid.derivateHit
-        reads = _neuralNet.fastSigmoid.derivateReadCount
-        
-        hitsRate = Float(hits)/Float(reads)
-        
-        print("cache hits rate:",hitsRate)
-        
     }
     
     
     @IBOutlet weak var trainingBtn:NSButton!
     @IBAction func startTraining(_:AnyObject) {
+        
+        _stopTraining = false
+        trainingBtn.enabled = false
+
         
         let thread = NSThread(target: self, selector: #selector(training), object: nil)
         thread.threadPriority = 0.0
@@ -69,9 +55,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func training() {
         
-        _stopTraining = false
-        
-        trainingBtn.enabled = false
         for _ in 1...training_loop {
             
             if _stopTraining  {

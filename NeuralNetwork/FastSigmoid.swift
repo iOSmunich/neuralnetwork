@@ -24,9 +24,6 @@ class FastSigmoid {
     
     
     
-    
-    
-    
     //sigmoid activation
     func activation(val:Double) -> Double {
         
