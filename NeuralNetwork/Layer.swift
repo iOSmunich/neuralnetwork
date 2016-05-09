@@ -56,6 +56,7 @@ class Layer {
     func setInputs(inputs:[Double]) {
         self.inputs = inputs
         
+        
         //calc
         setNeuronsInputs()
         

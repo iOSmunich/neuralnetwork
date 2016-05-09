@@ -39,7 +39,7 @@ class FastSigmoid {
         
         activatnReadCount += 1
         
-        
+//        print(val)
         
         let key = Int(val * 100.0)
         

@@ -42,6 +42,7 @@ class Neuron {
     //////////////////////////////////
     // set inputs outputs
     func setInputs(inputs:[Double]) {
+        
         self.inputs = inputs
         syncWeights()
         
@@ -84,6 +85,7 @@ class Neuron {
     
     //delta weight = -a * w_grad * net_grad * out_grad
     func updateWeights() {
+        
         
         //update net2out_grad
         gradient = out2target_grad() * derivate(output)

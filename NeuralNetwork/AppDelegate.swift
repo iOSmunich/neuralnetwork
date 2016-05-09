@@ -9,9 +9,9 @@
 import Cocoa
 
 
-let net_topology    = [8,80,5]
+let net_topology    = [2,5]
 let learn_rate      = 0.1
-let training_loop   = 10000000
+let training_loop   = 100_000
 var _stopTraining   = true
 
 

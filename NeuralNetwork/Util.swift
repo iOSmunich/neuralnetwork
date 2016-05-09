@@ -66,6 +66,37 @@ func - (left:[Int],right:[Int]) -> [Int] {
     return res
 }
 
+extension _ArrayType where Generator.Element == Double {
+    
+    
+    var _sum:Double {
+        return self.reduce(0, combine: +)
+    }
+    
+    var mean:Double {
+        return self._sum / Double(self.count)
+    }
+    
+    var DTM:[Double] {
+        return self.map({$0 - mean})
+    }
+    
+    var variance:Double {
+        let tmp = self.map({ ($0 - mean) * ($0 - mean) })
+        return tmp._sum / Double(self.count)
+    }
+    
+    
+    var normalized:[Double] {
+        
+        let difToMeanSeq = self.map({ $0 - mean })
+        let variance_sqr = sqrt(variance)
+        
+        return difToMeanSeq.map({ $0 / variance_sqr })
+    }
+    
+}
+
 
 
 ////////////////////////////////////////////////////////////////////////
@@ -221,6 +252,8 @@ extension Int {
         return Double(self)
     }
 }
+
+
 
 
 

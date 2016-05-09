@@ -1,69 +1,69 @@
-//: Playground - noun: a place where people can play
-
-import Cocoa
-import GameKit
-
-func + (l:String,r:Int) -> String {
-    return l.stringByAppendingFormat("%d", r)
-}
-
-func + (l:String,r:Double) -> String {
-    return l.stringByAppendingFormat("%.4f", r)
-}
-
-
-func + (l:String,r:[Double]) -> String {
-    
-    var finalStr = l + "["
-    for val in r {
-        if val >= 0 {
-            finalStr += " "
-        }
-        
-        finalStr += " " + val
-    }
-    
-    return finalStr + " ]"
-}
-
-func activation(val:Double) -> Double {
-    return 1.0 / (1.0 + exp(-val))
-    //        return max(0.0, val) // relu
-}
-
-//partial derivate of sigmoid function
-func derivate(f:Double) -> Double {
-    return f * (1.0 - f)
-    
-    //    if f > 0.0 {
-    //        return 1.0
-    //    }
-    //    return 0.0
-}
-
-
-
-
-var inputs = [Double].init(count: 20, repeatedValue: 0.0)
-
-for i in 0..<inputs.count {
-    
-    let dist = GKRandomDistribution(lowestValue: -1000, highestValue: 1000)
-    inputs[i] = Double(dist.nextUniform())
-    
-}
-
-inputs = inputs.sort()
-
-let outputs = inputs.map { (item) -> Double in
-    return derivate(item)
-}
-
-print(""+inputs)
-print(""+outputs)
-
-
-
-
-
-
+////: Playground - noun: a place where people can play
+//
+//import Cocoa
+//import GameKit
+//
+//
+//
+//var a1 = Array.init(count: 5, repeatedValue: 1.0)
+//
+//
+//for i in 0..<a1.count {
+//    a1[i] = Double(i)
+//}
+//
+//extension _ArrayType where Generator.Element == Double {
+//    
+//    
+//    var sum:Double {
+//        return self.reduce(0, combine: +)
+//    }
+//    
+//    var mean:Double {
+//        return self.sum / Double(self.count)
+//    }
+//    
+//    
+//    var variance:Double {
+//        let tmp = self.map({ ($0 - mean) * ($0 - mean) })
+//        return tmp.sum / Double(self.count)
+//    }
+//    
+//    var normalized:[Double] {
+//        
+//        let difToMeanSeq = self.map({ $0 - mean })
+//        let variance_sqr = sqrt(variance)
+//        
+//        return difToMeanSeq.map({ $0 / variance_sqr })
+//    }
+//    
+//
+//    var distance:Double {
+//        
+//        
+//        let quad = self.map( { ($0 + mean) * $0 } )
+//        let summ = quad.sum
+//        
+//        return sqrt(summ)
+//    }
+//}
+//
+//
+//
+//
+//print(a1.sum)
+//
+//print(a1.mean)
+//
+//print(a1.variance)
+//
+//print(a1.normalized)
+//
+//print(a1.distance)
+//
+//
+//
+//
+//
+//
+//

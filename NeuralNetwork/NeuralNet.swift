@@ -25,10 +25,10 @@ class NeuralNet {
     
     
     private (set) var  inputs:[Double]!
-    private (set) var outputs:[Double]!
+    private (set) var outputs:[Double]!//use setOutputs!
     private (set) var targets:[Double]!//use setOutputs!
     
-    private (set) var err_sum: Double! //use setOutputs!
+    private (set) var err_sum: Double!
     private (set) var epoche:Int = 0
     
     
@@ -66,7 +66,9 @@ class NeuralNet {
     
     func setInputs(inputs:[Double]) {
         self.inputs = inputs
+        
         inputLayer.setInputs(self.inputs)
+        
         setOutputs()
     }
     
