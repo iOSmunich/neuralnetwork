@@ -20,7 +20,8 @@ class Neuron {
     var index       = -1 as Int
     
     
-    
+    var activationFunc:ActivationFunction!
+    var old_delta:[Double]!
     
     
     
@@ -73,6 +74,9 @@ class Neuron {
             weights[idx] = randomDouble()
         }
         
+        bias = randomDouble()
+        
+        self.old_delta = [Double].init(count: weights.count+1, repeatedValue: 0)
     }
     
     
@@ -94,14 +98,18 @@ class Neuron {
         //update each weight
         for idx in 0..<weights.count {
             
-            let weight2target_grad  = gradient * inputs[idx]
-            let weight_delta        = learn_rate  * weight2target_grad
-            
-            weights[idx] -= weight_delta
+            let new_delta = -1 * learn_rate * gradient * inputs[idx] + 0.95*old_delta[idx]
+            weights[idx] += new_delta
+            old_delta[idx] = new_delta
         }
         
         //update bias
-        bias -= learn_rate * gradient
+        
+        
+        let new_delta = -1 * learn_rate * gradient + 0.95*old_delta.last!
+        bias += new_delta
+        old_delta[old_delta.count-1] = new_delta
+        
     }
     
     
@@ -129,17 +137,17 @@ class Neuron {
     
     var isOutputNeuron:Bool     { return !layer.hasNextLayer }
     var outputNeurons:[Neuron]  { return  layer.nextLayer!.neurons }
-    var fastSigmoid:FastSigmoid!
+    
     
     
     //sigmoid activation
     func activation(val:Double) -> Double {
-        return fastSigmoid.activation(val)
+        return activationFunc.activation(val)
     }
     
     //partial derivate of sigmoid function
     func derivate(f:Double) -> Double {
-        return fastSigmoid.derivate(f)
+        return activationFunc.derivate(f)
     }
     
 }
@@ -147,7 +155,7 @@ class Neuron {
 ////sigmoid activation
 //func activation(val:Double) -> Double {
 //    return 1.0 / (1.0 + exp(-val))
-//    
+//
 //}
 //
 //

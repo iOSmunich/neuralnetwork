@@ -95,6 +95,23 @@ extension _ArrayType where Generator.Element == Double {
         return difToMeanSeq.map({ $0 / variance_sqr })
     }
     
+    var dist:Double {
+        let quadSum = self.reduce(0) { (qsum, itemVal) -> Double in
+            return qsum + itemVal * itemVal
+        }
+        
+        if quadSum < 0.000001 {
+            
+            return 1.0
+        }
+
+        return sqrt(quadSum)
+    }
+    
+    var normal:[Double] {
+        return self.map({ $0 / dist })
+    }
+    
 }
 
 

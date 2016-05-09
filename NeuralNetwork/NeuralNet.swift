@@ -21,7 +21,7 @@ class NeuralNet {
     var inputLayer:Layer { return layers.first! }
     var outputLayer:Layer { return layers.last! }
     
-    let fastSigmoid:FastSigmoid = FastSigmoid()
+    let activationFunc:ActivationFunction!
     
     
     private (set) var  inputs:[Double]!
@@ -36,6 +36,9 @@ class NeuralNet {
     ////////////////////////////////////////////////////////////
     
     init (net_topology:[Int]) {
+        
+        self.activationFunc = FastSigmoid()
+//        self.activationFunc = ReLu()
         
         //create layer
         for count in net_topology {
@@ -54,7 +57,7 @@ class NeuralNet {
                 nn.index = nnIndex
                 nn.layer = ll
                 
-                nn.fastSigmoid = self.fastSigmoid
+                nn.activationFunc = self.activationFunc
             }
         }
         

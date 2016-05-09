@@ -11,7 +11,7 @@ import Cocoa
 
 let net_topology    = [2,5]
 let learn_rate      = 0.1
-let training_loop   = 100_000
+let training_loop   = 1_000
 var _stopTraining   = true
 
 
@@ -23,7 +23,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet  var txtField: NSTextView!
     
     var _neuralNet = NeuralNet(net_topology: net_topology)
-
+    
     
     @IBAction func stopTraining(sender: AnyObject) {
         _stopTraining = true
@@ -33,7 +33,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBAction func clearTxt(_:AnyObject) {
         self.txtField.string = ""
     }
-
+    
     
     
     @IBOutlet weak var trainingBtn:NSButton!
@@ -46,6 +46,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let thread = NSThread(target: self, selector: #selector(training), object: nil)
         thread.threadPriority = 0.0
         thread.start()
+        
+        
     }
     
     @IBAction func showDebugInfo(_:AnyObject) {
@@ -57,7 +59,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 str += "l:"+nn.layerIndex + " n"+nn.index + " weights:"+nn.weights + " "+nn.bias + "\n"
             }
             self.txtField.string?.appendContentsOf(str + "\n")
+            
             self.txtField.scrollToEndOfDocument("")
+            
         }
     }
     
@@ -83,20 +87,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             self._neuralNet.starBP()
             
         }
-        
-        
-
-        printInfo()
-        
         trainingBtn.enabled = true
         
     }
     
     
-
     
     
-
+    
+    
     
     func generateTest() {
         
@@ -113,14 +112,24 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         
         
-        let _inputs = [x1.doubleValue,x2.doubleValue]
-        let _target = [y1.doubleValue,y2.doubleValue,y3.doubleValue,y4.doubleValue,y5]
+        
+        var _inputs = [x1.doubleValue,x2.doubleValue]
+        var _target = [y1.doubleValue,y2.doubleValue,y3.doubleValue,y4.doubleValue,y5]
+        
+        
+//        _inputs = _inputs.map({
+//            return $0 > 0 ? 0.5 : 0.0
+//        })
+//        
+//        _target = _target.map( {
+//            return $0 > 0 ? 0.5 : 0.0
+//        })
         
         _neuralNet.setInputs (_inputs)
         _neuralNet.setTargets(_target)
     }
     
-
+    
     
     
     
@@ -136,7 +145,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         self.txtField.string?.appendContentsOf(str)
         self.txtField.scrollToEndOfDocument("")
-
+        
     }
     
 }
