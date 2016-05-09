@@ -68,15 +68,14 @@ class Neuron {
     func syncWeights() {
         if weights != nil { return }
         
-        weights = Array.init(count: self.inputs.count, repeatedValue: 0.0)
+        weights     = Array.init(count: self.inputs.count, repeatedValue: 0.0)
+        old_delta   = [Double].init(count: weights.count+1, repeatedValue: 0)
+        self.bias   = randomDouble()
         
         for idx in 0..<weights.count {
             weights[idx] = randomDouble()
         }
         
-        bias = randomDouble()
-        
-        self.old_delta = [Double].init(count: weights.count+1, repeatedValue: 0)
     }
     
     
@@ -98,7 +97,7 @@ class Neuron {
         //update each weight
         for idx in 0..<weights.count {
             
-            let new_delta = -1 * learn_rate * gradient * inputs[idx] + 0.95*old_delta[idx]
+            let new_delta = -1 * learn_rate * gradient * inputs[idx] + 0.9*old_delta[idx]
             weights[idx] += new_delta
             old_delta[idx] = new_delta
         }
@@ -106,7 +105,7 @@ class Neuron {
         //update bias
         
         
-        let new_delta = -1 * learn_rate * gradient + 0.95*old_delta.last!
+        let new_delta = -1 * learn_rate * gradient + 0.9*old_delta.last!
         bias += new_delta
         old_delta[old_delta.count-1] = new_delta
         
@@ -152,17 +151,6 @@ class Neuron {
     
 }
 
-////sigmoid activation
-//func activation(val:Double) -> Double {
-//    return 1.0 / (1.0 + exp(-val))
-//
-//}
-//
-//
-////partial derivate of sigmoid function
-//func derivate(f:Double) -> Double {
-//    return f * (1.0 - f)
-//}
 
 
 

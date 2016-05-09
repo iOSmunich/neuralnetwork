@@ -672,16 +672,16 @@
         <window title="NeuralNetwork" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" showsToolbarButton="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="335" y="390" width="500" height="400"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
+            <rect key="contentRect" x="335" y="390" width="1059" height="726"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
             <value key="minSize" type="size" width="500" height="400"/>
-            <value key="maxSize" type="size" width="800" height="600"/>
+            <value key="maxSize" type="size" width="800" height="1024"/>
             <view key="contentView" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" placeholderIntrinsicWidth="500" placeholderIntrinsicHeight="400" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="500" height="400"/>
+                <rect key="frame" x="0.0" y="0.0" width="1059" height="726"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button verticalHuggingPriority="750" placeholderIntrinsicWidth="100" placeholderIntrinsicHeight="21" translatesAutoresizingMaskIntoConstraints="NO" id="xX4-25-477">
-                        <rect key="frame" x="141" y="52" width="107" height="32"/>
+                    <button verticalHuggingPriority="750" misplaced="YES" placeholderIntrinsicWidth="100" placeholderIntrinsicHeight="21" translatesAutoresizingMaskIntoConstraints="NO" id="xX4-25-477">
+                        <rect key="frame" x="141" y="378" width="107" height="32"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="95" id="gb6-im-hmM"/>
                         </constraints>
@@ -693,8 +693,8 @@
                             <action selector="startTraining:" target="Voe-Tx-rLC" id="wbJ-Hz-Idz"/>
                         </connections>
                     </button>
-                    <button verticalHuggingPriority="750" placeholderIntrinsicWidth="100" placeholderIntrinsicHeight="21" translatesAutoresizingMaskIntoConstraints="NO" id="9Jp-M8-xff">
-                        <rect key="frame" x="141" y="13" width="107" height="32"/>
+                    <button verticalHuggingPriority="750" misplaced="YES" placeholderIntrinsicWidth="100" placeholderIntrinsicHeight="21" translatesAutoresizingMaskIntoConstraints="NO" id="9Jp-M8-xff">
+                        <rect key="frame" x="141" y="339" width="107" height="32"/>
                         <buttonCell key="cell" type="push" title="stop training" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7GV-CP-6G8">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -703,8 +703,8 @@
                             <action selector="stopTraining:" target="Voe-Tx-rLC" id="Sng-LR-mV9"/>
                         </connections>
                     </button>
-                    <button verticalHuggingPriority="750" placeholderIntrinsicWidth="100" placeholderIntrinsicHeight="21" translatesAutoresizingMaskIntoConstraints="NO" id="n4Z-GT-ETs">
-                        <rect key="frame" x="14" y="13" width="107" height="32"/>
+                    <button verticalHuggingPriority="750" misplaced="YES" placeholderIntrinsicWidth="100" placeholderIntrinsicHeight="21" translatesAutoresizingMaskIntoConstraints="NO" id="n4Z-GT-ETs">
+                        <rect key="frame" x="14" y="339" width="107" height="32"/>
                         <buttonCell key="cell" type="push" title="debug info" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hkq-Uf-QSB">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -713,8 +713,8 @@
                             <action selector="showDebugInfo:" target="Voe-Tx-rLC" id="oIC-d4-u2A"/>
                         </connections>
                     </button>
-                    <button verticalHuggingPriority="750" placeholderIntrinsicWidth="100" placeholderIntrinsicHeight="21" translatesAutoresizingMaskIntoConstraints="NO" id="UfB-Ef-Zfk">
-                        <rect key="frame" x="14" y="52" width="107" height="32"/>
+                    <button verticalHuggingPriority="750" misplaced="YES" placeholderIntrinsicWidth="100" placeholderIntrinsicHeight="21" translatesAutoresizingMaskIntoConstraints="NO" id="UfB-Ef-Zfk">
+                        <rect key="frame" x="14" y="378" width="107" height="32"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="95" id="Z1k-Ho-Egq"/>
                         </constraints>
@@ -726,8 +726,8 @@
                             <action selector="calcTest:" target="Voe-Tx-rLC" id="dmK-2d-EVR"/>
                         </connections>
                     </button>
-                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="I7Y-bH-3Zp">
-                        <rect key="frame" x="272" y="52" width="107" height="32"/>
+                    <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I7Y-bH-3Zp">
+                        <rect key="frame" x="272" y="378" width="107" height="32"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="95" id="BC5-cZ-afY"/>
                         </constraints>
@@ -739,8 +739,8 @@
                             <action selector="clearTxt:" target="Voe-Tx-rLC" id="XRm-km-Ntu"/>
                         </connections>
                     </button>
-                    <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" findBarPosition="belowContent" translatesAutoresizingMaskIntoConstraints="NO" id="A74-ZE-ibH">
-                        <rect key="frame" x="20" y="100" width="460" height="280"/>
+                    <scrollView misplaced="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" findBarPosition="belowContent" translatesAutoresizingMaskIntoConstraints="NO" id="A74-ZE-ibH">
+                        <rect key="frame" x="20" y="426" width="460" height="280"/>
                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="u2R-bA-ewb">
                             <rect key="frame" x="0.0" y="0.0" width="460" height="280"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -787,7 +787,7 @@
                     <constraint firstItem="n4Z-GT-ETs" firstAttribute="baseline" secondItem="9Jp-M8-xff" secondAttribute="baseline" id="zO1-mM-tsD"/>
                 </constraints>
             </view>
-            <point key="canvasLocation" x="713" y="445"/>
+            <point key="canvasLocation" x="538.5" y="331"/>
         </window>
     </objects>
 </document>
