@@ -43,7 +43,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         _stopTraining = false
         trainingBtn.enabled = false
-
+        
         
         let thread = NSThread(target: self, selector: #selector(training), object: nil)
         thread.threadPriority = 0.0
@@ -62,38 +62,27 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 return
             }
             
-            
             self.generateTest()
             self._neuralNet.starBP()
             
-            
         }
         
-        let net = self._neuralNet
-        print("\nepoche:"+net.epoche)
-        print("outputs:"+net.outputs)
-        print("targets:"+net.targets)
-        print("err_sum:"+net.err_sum)
+        
+
+        printInfo()
         
         trainingBtn.enabled = true
         
     }
     
     
-    
+
     
     
     
     @IBAction func calcTest(_:AnyObject) {
         generateTest()
-        
-        let net = _neuralNet
-        
-        print("\nepoche:"+net.epoche)
-        print("outputs:"+net.outputs)
-        print("targets:"+net.targets)
-        print("err_sum:"+net.err_sum)
-        
+        printInfo()
     }
     
     
@@ -122,7 +111,25 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBAction func stopTraining(sender: AnyObject) {
         _stopTraining = true
     }
+    
+    
+    
+    
+    func printInfo(){
+        
+        let net = _neuralNet
+        
+        var str = "\n"
+        str += "epoche:"  + net.epoche  + "\n"
+        str += "outputs:" + net.outputs + "\n"
+        str += "targets:" + net.targets + "\n"
+        str += "err_sum:" + net.err_sum + "\n"
+        print(str)
+        
+    }
+    
 }
+
 
 
 
