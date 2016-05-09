@@ -112,6 +112,7 @@ extension _ArrayType where Generator.Element == Double {
         return self.map({ $0 / dist })
     }
     
+    
 }
 
 

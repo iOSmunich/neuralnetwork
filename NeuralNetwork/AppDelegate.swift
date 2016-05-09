@@ -7,22 +7,37 @@
 //
 
 import Cocoa
+import SpriteKit
 
 
-let net_topology    = [5,5,5]
+let net_topology    = [5,5,5,5,5,5,5,5,5]
 let learn_rate      = 0.1
-let training_loop   = 5_000_000
+let training_loop   = 1_000_000_000
 var _stopTraining   = true
 
+var global_Err_Sum  = 0.0
+var global_Epoch    = 0 as UInt
 
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBOutlet weak var window: NSWindow!
-    @IBOutlet  var txtField: NSTextView!
+    @IBOutlet var txtField: NSTextView!
+    @IBOutlet weak var skView:SKView!
     
     var _neuralNet = NeuralNet(net_topology: net_topology)
+    let _scene = Scene()
+    
+    func applicationDidFinishLaunching(notification: NSNotification) {
+        skView.showsFPS = true
+        
+
+        _scene.scaleMode = .ResizeFill
+        skView.presentScene(_scene)
+    }
+    
+    
     
     
     @IBAction func stopTraining(sender: AnyObject) {
@@ -86,6 +101,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             self.generateTest()
             self._neuralNet.starBP()
             
+            
         }
         trainingBtn.enabled = true
         
@@ -113,17 +129,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         
         
-        var _inputs = [x1.doubleValue,x2.doubleValue]
-        var _target = [y1.doubleValue,y2.doubleValue,y3.doubleValue,y4.doubleValue,y5]
+        let _inputs = [x1.doubleValue,x2.doubleValue]
+        let _target = [y1.doubleValue,y2.doubleValue,y3.doubleValue,y4.doubleValue,y5]
         
         
-//        _inputs = _inputs.map({
-//            return $0 > 0 ? 0.5 : 0.0
-//        })
-//        
-//        _target = _target.map( {
-//            return $0 > 0 ? 0.5 : 0.0
-//        })
         
         _neuralNet.setInputs (_inputs)
         _neuralNet.setTargets(_target)
@@ -138,7 +147,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let net = _neuralNet
         
         var str = "\n"
-        str += "epoche:"  + net.epoche  + "\n"
+        str += "epoch  :" + net.epoch  + "\n"
         str += "outputs:" + net.outputs + "\n"
         str += "targets:" + net.targets + "\n"
         str += "err_sum:" + net.err_sum + "\n"

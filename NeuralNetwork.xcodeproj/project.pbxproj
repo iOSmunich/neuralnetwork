@@ -15,6 +15,7 @@
 		84DA31AA1CDB7AE800C090AE /* NeuralNet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DA31A91CDB7AE800C090AE /* NeuralNet.swift */; };
 		84DA31AC1CDB7AF000C090AE /* Neuron.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DA31AB1CDB7AF000C090AE /* Neuron.swift */; };
 		84DA31AE1CDB7AFE00C090AE /* Layer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DA31AD1CDB7AFE00C090AE /* Layer.swift */; };
+		84EB96871CE1074100AF3CDD /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EB96861CE1074100AF3CDD /* Scene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		84DA31AB1CDB7AF000C090AE /* Neuron.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Neuron.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		84DA31AD1CDB7AFE00C090AE /* Layer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Layer.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		84DA31AF1CDB8B1E00C090AE /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
+		84EB96861CE1074100AF3CDD /* Scene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +67,7 @@
 				84DA31A71CDB7ABA00C090AE /* Util.swift */,
 				84DA31AF1CDB8B1E00C090AE /* MyPlayground.playground */,
 				84DA31A91CDB7AE800C090AE /* NeuralNet.swift */,
+				84EB96861CE1074100AF3CDD /* Scene.swift */,
 				84DA31AB1CDB7AF000C090AE /* Neuron.swift */,
 				8441CF071CDE5821004C8211 /* Activaction.swift */,
 				84DA31AD1CDB7AFE00C090AE /* Layer.swift */,
@@ -149,6 +152,7 @@
 				84DA319B1CDB7A9900C090AE /* AppDelegate.swift in Sources */,
 				84DA31A81CDB7ABA00C090AE /* Util.swift in Sources */,
 				84DA31AE1CDB7AFE00C090AE /* Layer.swift in Sources */,
+				84EB96871CE1074100AF3CDD /* Scene.swift in Sources */,
 				84DA31AC1CDB7AF000C090AE /* Neuron.swift in Sources */,
 				84DA31AA1CDB7AE800C090AE /* NeuralNet.swift in Sources */,
 			);

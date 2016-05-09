@@ -29,7 +29,7 @@ class NeuralNet {
     private (set) var targets:[Double]!//use setOutputs!
     
     private (set) var err_sum: Double!
-    private (set) var epoche:Int = 0
+    private (set) var epoch:Int = 0
     
     
     
@@ -38,7 +38,7 @@ class NeuralNet {
     init (net_topology:[Int]) {
         
         self.activationFunc = FastSigmoid()
-//        self.activationFunc = ReLu()
+
         
         //create layer
         for count in net_topology {
@@ -88,7 +88,7 @@ class NeuralNet {
         
         self.outputs = outputLayer.outputs
         err_sum = calcTotalError(targets, vec1: outputs)
-        
+        global_Err_Sum = err_sum
     }
     
     
@@ -98,7 +98,9 @@ class NeuralNet {
             return
         }
         
-        epoche += 1
+        epoch += 1
+        global_Epoch = UInt(epoch)
+        
         
         //set target for output layer
         for idx in 0..<targets.count {

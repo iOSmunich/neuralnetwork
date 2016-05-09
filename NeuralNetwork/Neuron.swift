@@ -97,9 +97,9 @@ class Neuron {
         //update each weight
         for idx in 0..<weights.count {
             
-            let new_delta = -1 * learn_rate * gradient * inputs[idx] + 0.9*old_delta[idx]
-            weights[idx] += new_delta
-            old_delta[idx] = new_delta
+            let new_delta   =   -1 * learn_rate * gradient * inputs[idx] + 0.9*old_delta[idx]
+            weights[idx]    +=  new_delta
+            old_delta[idx]  =   new_delta
         }
         
         //update bias
