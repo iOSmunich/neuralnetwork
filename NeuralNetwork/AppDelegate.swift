@@ -20,22 +20,20 @@ var _stopTraining   = true
 class AppDelegate: NSObject, NSApplicationDelegate {
     
     @IBOutlet weak var window: NSWindow!
+    @IBOutlet  var txtField: NSTextView!
     
     var _neuralNet = NeuralNet(net_topology: net_topology)
+
     
-    
-    
-    @IBAction func showDebugInfo(_:AnyObject) {
-        
-        for ll in _neuralNet.layers {
-            
-            print("\n")
-            for nn in ll.neurons {
-                print("l:",nn.layerIndex,"n",nn.index," weights:"+nn.weights+" "+nn.bias)
-            }
-            
-        }
+    @IBAction func stopTraining(sender: AnyObject) {
+        _stopTraining = true
     }
+    
+    
+    @IBAction func clearTxt(_:AnyObject) {
+        self.txtField.string = ""
+    }
+
     
     
     @IBOutlet weak var trainingBtn:NSButton!
@@ -48,6 +46,25 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let thread = NSThread(target: self, selector: #selector(training), object: nil)
         thread.threadPriority = 0.0
         thread.start()
+    }
+    
+    @IBAction func showDebugInfo(_:AnyObject) {
+        
+        for ll in _neuralNet.layers {
+            
+            var str = "\n"
+            for nn in ll.neurons {
+                str += "l:"+nn.layerIndex + " n"+nn.index + " weights:"+nn.weights + " "+nn.bias + "\n"
+            }
+            self.txtField.string?.appendContentsOf(str + "\n")
+            self.txtField.scrollToEndOfDocument("")
+        }
+    }
+    
+    
+    @IBAction func calcTest(_:AnyObject) {
+        generateTest()
+        printInfo()
     }
     
     
@@ -79,12 +96,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     
     
-    
-    @IBAction func calcTest(_:AnyObject) {
-        generateTest()
-        printInfo()
-    }
-    
+
     
     func generateTest() {
         
@@ -108,10 +120,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         _neuralNet.setTargets(_target)
     }
     
-    @IBAction func stopTraining(sender: AnyObject) {
-        _stopTraining = true
-    }
-    
+
     
     
     
@@ -124,8 +133,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         str += "outputs:" + net.outputs + "\n"
         str += "targets:" + net.targets + "\n"
         str += "err_sum:" + net.err_sum + "\n"
-        print(str)
         
+        self.txtField.string?.appendContentsOf(str)
+        self.txtField.scrollToEndOfDocument("")
+
     }
     
 }
