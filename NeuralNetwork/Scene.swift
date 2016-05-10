@@ -78,7 +78,16 @@ class Scene: SKScene {
         
     }
     
+    private var updateDelayer = 0 as Int
+    
     override func update(currentTime: NSTimeInterval) {
+        
+        updateDelayer += 1
+        updateDelayer = updateDelayer % 5
+
+        if updateDelayer != 0 {
+            return
+        }
         
         
         if global_trainingPaused {

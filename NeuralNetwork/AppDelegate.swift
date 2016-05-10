@@ -10,10 +10,12 @@ import Cocoa
 import SpriteKit
 
 
-let net_topology            = [20,200,20,5]
+//let net_topology            = [20,20,20,20,20,20,5]
+let net_topology            = [20,20,20,20,20,20,20,5]
 let training_loop           = 1_000_000_000
 
 var global_learn_rate       = 0.1 as Double
+var global_momentum_rate    = 0.3 as Double
 var global_trainingPaused   = true
 var global_Err_Sum          = 0.0
 var global_Epoch            = 0 as UInt
@@ -24,6 +26,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     @IBOutlet weak  var learnRateLabel: NSTextField!
+    @IBOutlet weak  var momentumRateLabel: NSTextField!
     @IBOutlet weak  var window: NSWindow!
     @IBOutlet       var txtField: NSTextView!
     @IBOutlet weak  var skView:SKView!
@@ -58,6 +61,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBAction func learRateSliderAction(slider: NSSlider) {
         global_learn_rate = slider.doubleValue
         learnRateLabel.stringValue = global_learn_rate.description
+    }
+
+    @IBAction func momentumRateSliderAction(slider: NSSlider) {
+        global_momentum_rate = slider.doubleValue
+        momentumRateLabel.stringValue = global_momentum_rate.description
     }
     
     

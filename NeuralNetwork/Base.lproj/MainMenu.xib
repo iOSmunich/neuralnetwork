@@ -14,7 +14,8 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="NeuralNetwork" customModuleProvider="target">
             <connections>
-                <outlet property="learnRateLabel" destination="2eR-cZ-6IJ" id="nX0-Jv-h0D"/>
+                <outlet property="learnRateLabel" destination="2eR-cZ-6IJ" id="j1K-Z5-rFK"/>
+                <outlet property="momentumRateLabel" destination="gVa-jC-ZPi" id="vJU-ub-jvW"/>
                 <outlet property="skView" destination="XFX-LN-7Ja" id="lg4-97-aAO"/>
                 <outlet property="trainingBtn" destination="xX4-25-477" id="Xbf-Tl-oJt"/>
                 <outlet property="txtField" destination="TlZ-Mz-s4p" id="VoY-QQ-JJP"/>
@@ -688,7 +689,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="339" height="428"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <textView ambiguous="YES" editable="NO" importsGraphics="NO" richText="NO" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="TlZ-Mz-s4p">
+                                <textView ambiguous="YES" editable="NO" importsGraphics="NO" richText="NO" findStyle="panel" verticallyResizable="YES" allowsNonContiguousLayout="YES" id="TlZ-Mz-s4p">
                                     <rect key="frame" x="0.0" y="0.0" width="339" height="428"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -714,10 +715,17 @@
                         <rect key="frame" x="367" y="225" width="372" height="231"/>
                     </customView>
                     <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EiH-sK-kGK">
-                        <rect key="frame" x="431" y="185" width="85" height="25"/>
-                        <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="0.029999999999999999" maxValue="0.29999999999999999" doubleValue="0.089999999999999997" tickMarkPosition="above" numberOfTickMarks="10" allowsTickMarkValuesOnly="YES" sliderType="linear" id="jP7-Qm-ubC"/>
+                        <rect key="frame" x="473" y="182" width="85" height="25"/>
+                        <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="0.01" maxValue="1" doubleValue="0.11421052631578947" tickMarkPosition="above" numberOfTickMarks="20" allowsTickMarkValuesOnly="YES" sliderType="linear" id="jP7-Qm-ubC"/>
                         <connections>
                             <action selector="learRateSliderAction:" target="Voe-Tx-rLC" id="3dl-L4-cTf"/>
+                        </connections>
+                    </slider>
+                    <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dO4-t1-rzm">
+                        <rect key="frame" x="473" y="154" width="85" height="25"/>
+                        <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="0.01" maxValue="0.98999999999999999" doubleValue="0.3194736842105263" tickMarkPosition="above" numberOfTickMarks="20" allowsTickMarkValuesOnly="YES" sliderType="linear" id="1ta-uG-HP4"/>
+                        <connections>
+                            <action selector="momentumRateSliderAction:" target="Voe-Tx-rLC" id="EjP-wd-62P"/>
                         </connections>
                     </slider>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Hm-R8-VZD">
@@ -728,9 +736,17 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2eR-cZ-6IJ">
-                        <rect key="frame" x="520" y="187" width="38" height="17"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="0.100" usesSingleLineMode="YES" id="bce-aO-8eH">
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G18-Cd-Adq">
+                        <rect key="frame" x="365" y="156" width="100" height="17"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="momentum rate" id="pOK-02-rbE">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gVa-jC-ZPi">
+                        <rect key="frame" x="571" y="156" width="38" height="17"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="0.30" usesSingleLineMode="YES" id="eXP-mi-p3z">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -796,6 +812,14 @@
                             <action selector="resetNetwork:" target="Voe-Tx-rLC" id="kHB-1P-piR"/>
                         </connections>
                     </button>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2eR-cZ-6IJ">
+                        <rect key="frame" x="571" y="187" width="38" height="17"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="0.10" usesSingleLineMode="YES" id="bce-aO-8eH">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                 </subviews>
             </view>
             <point key="canvasLocation" x="388.5" y="206"/>

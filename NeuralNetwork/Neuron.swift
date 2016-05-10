@@ -70,7 +70,6 @@ class Neuron {
         
         weights     = Array.init(count: self.inputs.count, repeatedValue: 0.0)
         old_delta   = [Double].init(count: weights.count+1, repeatedValue: 0)
-        self.bias   = randomDouble()
         
         for idx in 0..<weights.count {
             weights[idx] = randomDouble()
@@ -97,7 +96,7 @@ class Neuron {
         //update each weight
         for idx in 0..<weights.count {
             
-            let new_delta   =   -1 * global_learn_rate * gradient * inputs[idx] + 0.9*old_delta[idx]
+            let new_delta   =   -1 * global_learn_rate * gradient * inputs[idx] + global_momentum_rate*old_delta[idx]
             weights[idx]    +=  new_delta
             old_delta[idx]  =   new_delta
         }
@@ -105,7 +104,7 @@ class Neuron {
         //update bias
         
         
-        let new_delta = -1 * global_learn_rate * gradient + 0.9*old_delta.last!
+        let new_delta = -1 * global_learn_rate * gradient + global_momentum_rate*old_delta.last!
         bias += new_delta
         old_delta[old_delta.count-1] = new_delta
         
