@@ -11,8 +11,7 @@ import SpriteKit
 
 class Scene: SKScene {
     
-    private (set) var _lastTime:NSTimeInterval = 0
-    
+    private (set) var _sportTimer = SportTimer()
     
     private (set) var _label1    = SKLabelNode.init()
     private (set) var _label2    = SKLabelNode.init()
@@ -76,24 +75,20 @@ class Scene: SKScene {
         
         _diagram.addChild(xLine)
         _diagram.addChild(yLine)
+        
     }
-    
     
     override func update(currentTime: NSTimeInterval) {
         
         
-        if _stopTraining {
-
-            //mem last time if not set yet
-            if _lastTime == 0 {
-                _lastTime = currentTime
-            }
-
+        if global_trainingPaused {
+            _sportTimer.pause()
             return
+        } else {
+            _sportTimer.start()
         }
         
         
-
         
         _lossVal = global_Err_Sum
         
@@ -104,13 +99,13 @@ class Scene: SKScene {
         let dist = _last50Loss.dist
         _label1.text = "loss :" + dist
         _label2.text = "epoch:" + global_Epoch.description
-        _label3.text = "time :" + (currentTime - _lastTime)
+        _label3.text = "time :" + _sportTimer.elapsedTime
         
         
         
         //optimal found
         if dist < 0.01 {
-            _stopTraining = true
+            global_trainingPaused = true
         }
         
         
@@ -141,7 +136,6 @@ class Scene: SKScene {
         
         
         
-        
         //redraw spline
         _spline?.removeFromParent()
         _spline = SKShapeNode.init(splinePoints: &points, count: 50)
@@ -155,6 +149,26 @@ class Scene: SKScene {
         
         _diagram.position = p
         print(p)
+    }
+    
+    
+    func reset(){
+        
+        _sportTimer.reset()
+        
+        
+        _label1.text = "loss :" + 0
+        _label2.text = "epoch:" + 0
+        _label3.text = "time :" + 0
+        
+        
+        _lossVal  = 0.0
+        _lastSum  = 0.0
+        _last50Loss.reset()
+        
+        _spline?.removeAllChildren()
+        _spline?.removeFromParent()
+        
     }
 }
 

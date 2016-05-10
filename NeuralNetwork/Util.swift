@@ -112,6 +112,11 @@ extension _ArrayType where Generator.Element == Double {
         return self.map({ $0 / dist })
     }
     
+    mutating func reset() {
+        for idx in 0..<self.count {
+            self[idx] = 0
+        }
+    }
     
 }
 

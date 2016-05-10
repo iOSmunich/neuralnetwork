@@ -97,7 +97,7 @@ class Neuron {
         //update each weight
         for idx in 0..<weights.count {
             
-            let new_delta   =   -1 * learn_rate * gradient * inputs[idx] + 0.9*old_delta[idx]
+            let new_delta   =   -1 * global_learn_rate * gradient * inputs[idx] + 0.9*old_delta[idx]
             weights[idx]    +=  new_delta
             old_delta[idx]  =   new_delta
         }
@@ -105,7 +105,7 @@ class Neuron {
         //update bias
         
         
-        let new_delta = -1 * learn_rate * gradient + 0.9*old_delta.last!
+        let new_delta = -1 * global_learn_rate * gradient + 0.9*old_delta.last!
         bias += new_delta
         old_delta[old_delta.count-1] = new_delta
         
@@ -149,7 +149,28 @@ class Neuron {
         return activationFunc.derivate(f)
     }
     
+    
+    func reset(){
+        
+        
+        self.weights = nil
+        syncWeights()
+        
+        gradient    = 0
+        net_sum     = 0
+        target      = 0
+
+        inputs.reset()
+        old_delta.reset()
+        
+    }
+    
 }
+
+
+
+
+
 
 
 

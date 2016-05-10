@@ -10,24 +10,30 @@ import Cocoa
 import SpriteKit
 
 
-let net_topology    = [5,5,5,5,5,5,5,5,5]
-let learn_rate      = 0.1
-let training_loop   = 1_000_000_000
-var _stopTraining   = true
+let net_topology            = [20,200,20,5]
+let training_loop           = 1_000_000_000
 
-var global_Err_Sum  = 0.0
-var global_Epoch    = 0 as UInt
+var global_learn_rate       = 0.1 as Double
+var global_trainingPaused   = true
+var global_Err_Sum          = 0.0
+var global_Epoch            = 0 as UInt
 
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     
-    @IBOutlet weak var window: NSWindow!
-    @IBOutlet var txtField: NSTextView!
-    @IBOutlet weak var skView:SKView!
+    
+    @IBOutlet weak  var learnRateLabel: NSTextField!
+    @IBOutlet weak  var window: NSWindow!
+    @IBOutlet       var txtField: NSTextView!
+    @IBOutlet weak  var skView:SKView!
+    
+
     
     var _neuralNet = NeuralNet(net_topology: net_topology)
-    let _scene = Scene()
+    private let _scene = Scene()
+    
+    
     
     func applicationDidFinishLaunching(notification: NSNotification) {
         skView.showsFPS = true
@@ -35,13 +41,29 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         _scene.scaleMode = .ResizeFill
         skView.presentScene(_scene)
+        learnRateLabel.stringValue = global_learn_rate.description
     }
     
     
+    @IBAction func resetNetwork(sender: AnyObject) {
+        
+        global_Err_Sum          = 0
+        global_Epoch            = 0
+        global_trainingPaused   = true
+        
+        _neuralNet.reset()
+        _scene.reset()
+    }
+    
+    @IBAction func learRateSliderAction(slider: NSSlider) {
+        global_learn_rate = slider.doubleValue
+        learnRateLabel.stringValue = global_learn_rate.description
+    }
     
     
     @IBAction func stopTraining(sender: AnyObject) {
-        _stopTraining = true
+
+        global_trainingPaused = true
     }
     
     
@@ -54,7 +76,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var trainingBtn:NSButton!
     @IBAction func startTraining(_:AnyObject) {
         
-        _stopTraining = false
+        global_trainingPaused = false
         trainingBtn.enabled = false
         
         
@@ -62,8 +84,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         thread.threadPriority = 0.0
         thread.start()
         
-        
     }
+    
     
     @IBAction func showDebugInfo(_:AnyObject) {
         
@@ -93,7 +115,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         for _ in 1...training_loop {
             
-            if _stopTraining  {
+            if global_trainingPaused  {
                 trainingBtn.enabled = true
                 return
             }
@@ -111,9 +133,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     
-    
-    
-    func generateTest() {
+    private func generateTest() {
         
         
         let x1 = random() % 2
@@ -140,9 +160,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     
-    
-    
-    func printInfo(){
+    private func printInfo(){
         
         let net = _neuralNet
         
