@@ -1,69 +1,57 @@
-////: Playground - noun: a place where people can play
-//
-//import Cocoa
-//import GameKit
-//
-//
-//
-//var a1 = Array.init(count: 5, repeatedValue: 1.0)
-//
-//
-//for i in 0..<a1.count {
-//    a1[i] = Double(i)
-//}
-//
-//extension _ArrayType where Generator.Element == Double {
-//    
-//    
-//    var sum:Double {
-//        return self.reduce(0, combine: +)
-//    }
-//    
-//    var mean:Double {
-//        return self.sum / Double(self.count)
-//    }
-//    
-//    
-//    var variance:Double {
-//        let tmp = self.map({ ($0 - mean) * ($0 - mean) })
-//        return tmp.sum / Double(self.count)
-//    }
-//    
-//    var normalized:[Double] {
-//        
-//        let difToMeanSeq = self.map({ $0 - mean })
-//        let variance_sqr = sqrt(variance)
-//        
-//        return difToMeanSeq.map({ $0 / variance_sqr })
-//    }
-//    
-//
-//    var distance:Double {
-//        
-//        
-//        let quad = self.map( { ($0 + mean) * $0 } )
-//        let summ = quad.sum
-//        
-//        return sqrt(summ)
-//    }
-//}
-//
-//
-//
-//
-//print(a1.sum)
-//
-//print(a1.mean)
-//
-//print(a1.variance)
-//
-//print(a1.normalized)
-//
-//print(a1.distance)
-//
-//
-//
-//
-//
-//
-//
+import Cocoa
+
+
+
+var a = [Double].init(count: 10, repeatedValue: 0)
+
+for n in 0..<a.count {
+    a[n] = Double(n) + 0.1
+}
+
+
+print(a)
+
+
+
+
+
+func getSlices(maxLen:Int,selfList:[Double]) -> [[Double]] {
+    
+    let slice_num = selfList.count / maxLen
+    let slice_len = maxLen
+    let restLen = selfList.count%slice_num
+    
+    let tmp = [Double].init(count: slice_len, repeatedValue: 0)
+    var res = [[Double]].init(count: slice_num, repeatedValue: tmp)
+    
+    
+    for i in 0..<slice_num {
+        for j in 0..<slice_len {
+            let offset = i*slice_len + j
+            res[i][j] = selfList[offset]
+        }
+    }
+    
+    if restLen == 0 {
+        return res
+    }
+    
+    
+    
+    let start_rest = selfList.count - restLen
+    var rest = [Double]()
+    for i in start_rest..<selfList.count {
+        rest.append(selfList[i])
+    }
+    res.append(rest)
+    
+    return res
+}
+
+
+let b = getSlices(2, selfList: a)
+
+print(b)
+
+
+

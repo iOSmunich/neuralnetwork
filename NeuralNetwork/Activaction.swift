@@ -41,7 +41,7 @@ class FastSigmoid:ActivationFunction {
             return 0
         }
 
-        let key = Int(val * 100.0)
+        let key = Int(val * 1000.0)
         
         if let cached = activationCache[key] {
             activationCache[key]?.hit += 1
@@ -54,7 +54,7 @@ class FastSigmoid:ActivationFunction {
         
         let newRes = 1.0 / (1.0 + exp(-val))
         
-        if activationCache.count < 10000 {
+        if activationCache.count < 100000 {
             activationCache[key] = (newRes,0)
         }
             //clean up cache
@@ -106,7 +106,7 @@ class FastSigmoid:ActivationFunction {
         }
         
 
-        let key = Int(val * 100.0)
+        let key = Int(val * 2000.0)
         if let cached = derivateCache[key] {
             derivateCache[key]?.hit += 1
             return cached.val
@@ -119,7 +119,7 @@ class FastSigmoid:ActivationFunction {
         let newRes = val * (1.0 - val)
         
         
-        if derivateCache.count < 1000 {
+        if derivateCache.count < 10000 {
             derivateCache[key] = (newRes,0)
         }
             //clean up cache

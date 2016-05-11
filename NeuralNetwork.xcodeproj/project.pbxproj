@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		840EB1E31CE344F9003C8E66 /* InfoScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 840EB1E21CE344F9003C8E66 /* InfoScene.sks */; };
 		8441CF081CDE5821004C8211 /* Activaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8441CF071CDE5821004C8211 /* Activaction.swift */; };
+		84745CE31CE243040005D566 /* LG_Fifo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84745CE21CE243040005D566 /* LG_Fifo.swift */; };
 		8478F1E51CE1D76C00E1FD37 /* SportTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8478F1E41CE1D76C00E1FD37 /* SportTimer.swift */; };
 		84DA319B1CDB7A9900C090AE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DA319A1CDB7A9900C090AE /* AppDelegate.swift */; };
 		84DA319D1CDB7A9900C090AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84DA319C1CDB7A9900C090AE /* Assets.xcassets */; };
@@ -20,7 +22,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		840EB1E21CE344F9003C8E66 /* InfoScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = InfoScene.sks; sourceTree = "<group>"; };
 		8441CF071CDE5821004C8211 /* Activaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Activaction.swift; sourceTree = "<group>"; };
+		84745CE21CE243040005D566 /* LG_Fifo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LG_Fifo.swift; sourceTree = "<group>"; };
 		8478F1E41CE1D76C00E1FD37 /* SportTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SportTimer.swift; sourceTree = "<group>"; };
 		84DA31971CDB7A9900C090AE /* NeuralNetwork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NeuralNetwork.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84DA319A1CDB7A9900C090AE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AppDelegate.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -70,7 +74,9 @@
 				84DA31AF1CDB8B1E00C090AE /* MyPlayground.playground */,
 				84DA31A91CDB7AE800C090AE /* NeuralNet.swift */,
 				84EB96861CE1074100AF3CDD /* Scene.swift */,
+				840EB1E21CE344F9003C8E66 /* InfoScene.sks */,
 				8478F1E41CE1D76C00E1FD37 /* SportTimer.swift */,
+				84745CE21CE243040005D566 /* LG_Fifo.swift */,
 				84DA31AB1CDB7AF000C090AE /* Neuron.swift */,
 				8441CF071CDE5821004C8211 /* Activaction.swift */,
 				84DA31AD1CDB7AFE00C090AE /* Layer.swift */,
@@ -139,6 +145,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				840EB1E31CE344F9003C8E66 /* InfoScene.sks in Resources */,
 				84DA319D1CDB7A9900C090AE /* Assets.xcassets in Resources */,
 				84DA31A01CDB7A9900C090AE /* MainMenu.xib in Resources */,
 			);
@@ -152,6 +159,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8441CF081CDE5821004C8211 /* Activaction.swift in Sources */,
+				84745CE31CE243040005D566 /* LG_Fifo.swift in Sources */,
 				84DA319B1CDB7A9900C090AE /* AppDelegate.swift in Sources */,
 				84DA31A81CDB7ABA00C090AE /* Util.swift in Sources */,
 				84DA31AE1CDB7AFE00C090AE /* Layer.swift in Sources */,
@@ -214,10 +222,10 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MTL_ENABLE_DEBUG_INFO = YES;
+				MTL_ENABLE_DEBUG_INFO = yes;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 			};
 			name = Debug;
 		};
@@ -255,6 +263,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 			};
 			name = Release;
 		};
@@ -266,8 +275,10 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = NeuralNetwork/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = bbb.NeuralNetwork;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Debug;
 		};
@@ -281,6 +292,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = bbb.NeuralNetwork;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Release;
 		};

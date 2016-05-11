@@ -149,20 +149,6 @@ class Neuron {
     }
     
     
-    func reset(){
-        
-        
-        self.weights = nil
-        syncWeights()
-        
-        gradient    = 0
-        net_sum     = 0
-        target      = 0
-
-        inputs.reset()
-        old_delta.reset()
-        
-    }
     
 }
 

@@ -116,14 +116,7 @@ class Layer {
     }
     
     
-    
-    func reset() {
-        for nn in neurons {
-            nn.reset()
-        }
-        inputs.reset()
-        outputs.reset()
-    }
+
     
     
 }

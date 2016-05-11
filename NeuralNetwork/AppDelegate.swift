@@ -10,12 +10,14 @@ import Cocoa
 import SpriteKit
 
 
-//let net_topology            = [20,20,20,20,20,20,5]
-let net_topology            = [20,20,20,20,20,20,20,5]
+
+// MARK: global vars
+
+var net_topology            = [20,20,20,20,20,20,5]
 let training_loop           = 1_000_000_000
 
-var global_learn_rate       = 0.1 as Double
-var global_momentum_rate    = 0.3 as Double
+var global_learn_rate       = 0.01 as Double
+var global_momentum_rate    = 0.9 as Double
 var global_trainingPaused   = true
 var global_Err_Sum          = 0.0
 var global_Epoch            = 0 as UInt
@@ -25,67 +27,181 @@ var global_Epoch            = 0 as UInt
 class AppDelegate: NSObject, NSApplicationDelegate {
     
     
-    @IBOutlet weak  var learnRateLabel: NSTextField!
-    @IBOutlet weak  var momentumRateLabel: NSTextField!
+    
+    // MARK: local vars and outlets
+    
     @IBOutlet weak  var window: NSWindow!
-    @IBOutlet       var txtField: NSTextView!
     @IBOutlet weak  var skView:SKView!
     
-
-    
-    var _neuralNet = NeuralNet(net_topology: net_topology)
-    private let _scene = Scene()
+    @IBOutlet weak  var startTrainingBtn:NSButton!
+    @IBOutlet weak  var resetBtn:NSButton!
     
     
+    @IBOutlet weak  var learnRateLabel: NSTextField!
+    @IBOutlet weak  var momentumRateLabel: NSTextField!
     
-    func applicationDidFinishLaunching(notification: NSNotification) {
-        skView.showsFPS = true
-        
-
-        _scene.scaleMode = .ResizeFill
-        skView.presentScene(_scene)
-        learnRateLabel.stringValue = global_learn_rate.description
+    
+    @IBOutlet       var txtField: NSTextView!
+    @IBOutlet weak  var netToplogyField: NSTextField!
+    
+    
+    @IBOutlet weak  var momentum_slider:NSSlider!
+    @IBOutlet weak  var learnRate_slider:NSSlider!
+    
+    
+    
+    
+    var _neuralNet:NeuralNet!
+    var _scene:Scene!
+    
+    
+    
+    
+    
+    // MARK: init
+    
+    func applicationShouldTerminateAfterLastWindowClosed(sender: NSApplication) -> Bool {
+        return true
     }
     
     
-    @IBAction func resetNetwork(sender: AnyObject) {
+    func applicationDidFinishLaunching(notification: NSNotification) {
+        
+        newNet()
+        
+    }
+    
+    
+    func newNet() {
+        
+        
         
         global_Err_Sum          = 0
         global_Epoch            = 0
         global_trainingPaused   = true
         
-        _neuralNet.reset()
-        _scene.reset()
+        
+        
+        
+        _neuralNet = NeuralNet(net_topology: net_topology)
+        
+        
+        
+        //clear scene
+        _scene = Scene()
+        _scene.scaleMode = .ResizeFill
+        skView.presentScene(_scene)
+//        skView.showsFPS = true
+//        skView.showsQuadCount = true
+//        skView.showsNodeCount = true
+//        skView.showsDrawCount = true
+        
     }
+    
+    
+    
+    
+    // MARK: reset net work
+    
+    @IBAction func resetNetwork(sender: AnyObject) {
+        
+        global_learn_rate       = 0.01
+        global_momentum_rate    = 0.9
+        
+        
+        learnRate_slider.doubleValue    = global_learn_rate
+        momentum_slider.doubleValue     = global_momentum_rate
+        
+        
+        learnRateLabel.stringValue      = global_learn_rate.description
+        momentumRateLabel.stringValue   = global_momentum_rate.description
+        
+        
+        _scene.removeAllActions()
+        _scene.removeAllChildren()
+        _scene =  nil
+
+        
+        _neuralNet = nil
+        
+        
+        newNet()
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    // MARK: interactive parameter change handler
     
     @IBAction func learRateSliderAction(slider: NSSlider) {
         global_learn_rate = slider.doubleValue
         learnRateLabel.stringValue = global_learn_rate.description
     }
-
+    
     @IBAction func momentumRateSliderAction(slider: NSSlider) {
         global_momentum_rate = slider.doubleValue
         momentumRateLabel.stringValue = global_momentum_rate.description
     }
     
     
-    @IBAction func stopTraining(sender: AnyObject) {
-
-        global_trainingPaused = true
-    }
-    
-    
-    @IBAction func clearTxt(_:AnyObject) {
-        self.txtField.string = ""
-    }
-    
-    
-    
-    @IBOutlet weak var trainingBtn:NSButton!
-    @IBAction func startTraining(_:AnyObject) {
+    ///////////////
+    @IBAction func topologyDidChange(sender: NSTextField) {
         
-        global_trainingPaused = false
-        trainingBtn.enabled = false
+        let token = sender.stringValue.componentsSeparatedByString(",")
+        
+        net_topology = token.map({ Int($0)! })
+        
+        //show net topology in text view
+        let str = "\ncreate new net:" + net_topology.description + "\n"
+        self.txtField.string?.appendContentsOf(str)
+        
+        //create new net
+        resetNetwork("")
+
+        
+        //resign first responder
+        sender.enabled = false
+        NSTimer.runBlockAfterDelay(0.1) { 
+            sender.enabled = true
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    // MARK: start and stop training
+    
+    
+    @IBAction func startTraining(btn:NSButton) {
+        
+        global_trainingPaused       = false
+        resetBtn.enabled            = false
+        startTrainingBtn.enabled    = false
+        netToplogyField.enabled     = false
         
         
         let thread = NSThread(target: self, selector: #selector(training), object: nil)
@@ -93,6 +209,81 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         thread.start()
         
     }
+    
+    
+    
+    
+    
+    
+    func training() {
+        
+        for _ in 1...training_loop {
+
+            //trainingDidEnd()
+            if global_trainingPaused  {
+                resetBtn.enabled            = true
+                startTrainingBtn.enabled    = true
+                netToplogyField.enabled     = true
+                return
+            }
+            
+            self.generateTest()
+            self._neuralNet.starBP()
+            
+        }
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    @IBAction func stopTraining(sender: AnyObject) {
+        
+        global_trainingPaused = true
+        
+        
+        //trainingDidEnd()
+        resetBtn.enabled            = true
+        startTrainingBtn.enabled    = true
+        netToplogyField.enabled     = true
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    // MARK: info tools
+    
+    
+    @IBAction func calcTest(_:AnyObject) {
+        generateTest()
+        printInfo()
+    }
+    
+    
+    
+    
+    
+    
+    @IBAction func clearTxt(_:AnyObject) {
+        self.txtField.string = ""
+    }
+    
     
     
     @IBAction func showDebugInfo(_:AnyObject) {
@@ -111,33 +302,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     
-    @IBAction func calcTest(_:AnyObject) {
-        generateTest()
-        printInfo()
-    }
     
     
     
     
-    func training() {
-        
-        for _ in 1...training_loop {
-            
-            if global_trainingPaused  {
-                trainingBtn.enabled = true
-                return
-            }
-            
-            self.generateTest()
-            self._neuralNet.starBP()
-            
-            
-        }
-        trainingBtn.enabled = true
-        
-    }
     
     
+    
+    
+    
+    // MARK: utils
     
     
     

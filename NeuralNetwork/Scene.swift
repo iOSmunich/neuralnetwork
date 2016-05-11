@@ -23,12 +23,16 @@ class Scene: SKScene {
     
     private (set) var _lossVal  = 0.0
     private (set) var _lastSum  = 0.0
-    private (set) var _last50Loss = [Double].init(count: 50, repeatedValue: 0)
+    private (set) var _last50Loss = [Double].init(count: 50, repeatedValue: 1.0)
+    private (set) var _last50Dist = [Double].init(count: 50, repeatedValue: 1.0)
+    
     
     
     private (set) var _spline:SKShapeNode?
     
     
+    
+    private (set) var _showSpline = true
     
     
     
@@ -37,28 +41,26 @@ class Scene: SKScene {
     override func didMoveToView(view: SKView) {
         
         let _labelC = SKNode()
+        _labelC.position = CGPointMake(285,190)
+        addChild(_labelC)
         
         
         _label1.position = CGPointMake(0, 15)
-        _label1.name = "label1"
-        _label1.fontSize = 12.0
+        _label1.fontSize = 14.0
         _label1.horizontalAlignmentMode = .Left
         _labelC.addChild(_label1)
         
         _label2.position = CGPointMake(0, 0)
-        _label2.name = "label2"
-        _label2.fontSize = 12.0
+        _label2.fontSize = 14.0
         _label2.horizontalAlignmentMode = .Left
         _labelC.addChild(_label2)
         
         _label3.position = CGPointMake(0, -15)
-        _label3.name = "label2"
-        _label3.fontSize = 12.0
+        _label3.fontSize = 14.0
         _label3.horizontalAlignmentMode = .Left
         _labelC.addChild(_label3)
         
-        _labelC.position = CGPointMake(250, 150)
-        addChild(_labelC)
+        
         
         
         
@@ -83,8 +85,8 @@ class Scene: SKScene {
     override func update(currentTime: NSTimeInterval) {
         
         updateDelayer += 1
-        updateDelayer = updateDelayer % 5
-
+        updateDelayer = updateDelayer % 3
+        
         if updateDelayer != 0 {
             return
         }
@@ -125,20 +127,29 @@ class Scene: SKScene {
         _last50Loss.append(_lossVal)
         
         
+        _last50Dist.removeFirst()
+        _last50Dist.append(_last50Loss.dist)
         
         
+        if _showSpline {
+            redrawSpline()
+        }
         
         
+    }
+    
+    
+    func redrawSpline(){
+        
+        let count = _last50Dist.count
         //make spline points
-        var points = [CGPoint].init(count: 50, repeatedValue: CGPointZero)
+        var points = [CGPoint].init(count: count, repeatedValue: CGPointZero)
         
-        for (idx,_) in points.enumerate() {
+        for (idx,dist) in _last50Dist.enumerate() {
             
-            
-            let tmpX = CGFloat(idx*5)
-            let tmpY = CGFloat(_last50Loss[idx]*100)
+            let tmpX = CGFloat(idx*6)
+            let tmpY = CGFloat(dist*30)
             let tmp  = CGPointMake(tmpX,tmpY)
-            
             
             points[idx] = tmp
         }
@@ -147,38 +158,18 @@ class Scene: SKScene {
         
         //redraw spline
         _spline?.removeFromParent()
-        _spline = SKShapeNode.init(splinePoints: &points, count: 50)
+        _spline = SKShapeNode.init(splinePoints: &points, count: count)
         _spline?.strokeColor = SKColor.redColor()
         _diagram.addChild(_spline!)
     }
     
     
+    
     override func mouseUp(theEvent: NSEvent) {
-        let p = theEvent.locationInNode(self)
-        
-        _diagram.position = p
-        print(p)
+        _showSpline = !_showSpline
+        print(theEvent.locationInNode(self))
     }
     
-    
-    func reset(){
-        
-        _sportTimer.reset()
-        
-        
-        _label1.text = "loss :" + 0
-        _label2.text = "epoch:" + 0
-        _label3.text = "time :" + 0
-        
-        
-        _lossVal  = 0.0
-        _lastSum  = 0.0
-        _last50Loss.reset()
-        
-        _spline?.removeAllChildren()
-        _spline?.removeFromParent()
-        
-    }
 }
 
 

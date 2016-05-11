@@ -111,22 +111,7 @@ class NeuralNet {
         layers.last?.updateWeights()
         
     }
-    
-    func reset() {
-        
-        inputs.reset()
-        outputs.reset()
-        targets.reset()
-        
-        err_sum = 0
-        epoch   = 0
-        
-        
-        
-        for ll in layers {
-            ll.reset()
-        }
-    }
+
     
 }
 

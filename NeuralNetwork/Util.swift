@@ -100,9 +100,9 @@ extension _ArrayType where Generator.Element == Double {
             return qsum + itemVal * itemVal
         }
         
-        if quadSum < 0.000001 {
+        if quadSum < 0.0001 {
             
-            return 1.0
+            return 0.0
         }
 
         return sqrt(quadSum)
@@ -111,13 +111,53 @@ extension _ArrayType where Generator.Element == Double {
     var normal:[Double] {
         return self.map({ $0 / dist })
     }
+
     
-    mutating func reset() {
-        for idx in 0..<self.count {
-            self[idx] = 0
+    
+    func getSlices(maxLen:Int) -> [[Double]] {
+        
+        if maxLen < 1 || self.count < 1 {
+            return [[]]
         }
+        
+        let slice_num = self.count / maxLen
+        
+        if slice_num < 1 {
+            return [[Double](self)]
+        }
+        
+        
+        
+        let slice_len = maxLen
+        let restLen = self.count%slice_num
+
+        let tmp = [Double].init(count: slice_len, repeatedValue: 0)
+        var res = [[Double]].init(count: slice_num, repeatedValue: tmp)
+        
+
+        for i in 0..<slice_num {
+            for j in 0..<slice_len {
+                let offset = i*slice_len + j
+                res[i][j] = self[offset]
+            }
+        }
+        
+        if restLen == 0 {
+            return res
+        }
+        
+        
+        
+        let start_rest = self.count - restLen
+        var rest = [Double]()
+        for i in start_rest..<self.count {
+            rest.append(self[i])
+        }
+        res.append(rest)
+        
+        return res
     }
-    
+
 }
 
 
@@ -320,4 +360,38 @@ extension NSTimer {
     
 }
 
+
+
+func getSlices(maxLen:Int,selfList:[Double]) -> [[Double]] {
+    
+    let slice_num = selfList.count / maxLen
+    let slice_len = maxLen
+    let restLen = selfList.count%slice_num
+    
+    let tmp = [Double].init(count: slice_len, repeatedValue: 0)
+    var res = [[Double]].init(count: slice_num, repeatedValue: tmp)
+    
+    
+    for i in 0..<slice_num {
+        for j in 0..<slice_len {
+            let offset = i*slice_len + j
+            res[i][j] = selfList[offset]
+        }
+    }
+    
+    if restLen == 0 {
+        return res
+    }
+    
+    
+    
+    let start_rest = selfList.count - restLen
+    var rest = [Double]()
+    for i in start_rest..<selfList.count {
+        rest.append(selfList[i])
+    }
+    res.append(rest)
+    
+    return res
+}
 
