@@ -17,23 +17,19 @@ class Scene: SKScene {
     private (set) var _label2    = SKLabelNode.init()
     private (set) var _label3    = SKLabelNode.init()
     
-    
-    
     private (set) var _diagram  = SKNode()
     
-    private (set) var _lossVal  = 0.0
+    
+    
+    
     private (set) var _lastSum  = 0.0
-    private (set) var _last50Loss = [Double].init(count: 50, repeatedValue: 1.0)
+    private (set) var _last50Loss = [Double].init(count: 20, repeatedValue: 1.0)
     private (set) var _last50Dist = [Double].init(count: 50, repeatedValue: 1.0)
     
     
     
     private (set) var _spline:SKShapeNode?
-    
-    
-    
     private (set) var _showSpline = true
-    
     
     
     
@@ -87,9 +83,7 @@ class Scene: SKScene {
         updateDelayer += 1
         updateDelayer = updateDelayer % 3
         
-        if updateDelayer != 0 {
-            return
-        }
+        if updateDelayer != 0 { return }
         
         
         if global_trainingPaused {
@@ -101,34 +95,29 @@ class Scene: SKScene {
         
         
         
-        _lossVal = global_Err_Sum
         
+        //fifo, store last 50 loss values
+        _last50Loss.removeFirst()
+        _last50Loss.append(global_Err_Sum)
         
+        let dist = _last50Loss.dist
+        _last50Dist.removeFirst()
+        _last50Dist.append(dist)
         
         
         //use dist as loss function
-        let dist = _last50Loss.dist
         _label1.text = "loss :" + dist
         _label2.text = "epoch:" + global_Epoch.description
         _label3.text = "time :" + _sportTimer.elapsedTime
         
         
         
+        
         //optimal found
-        if dist < 0.01 {
+        if dist < 0.05 && global_Epoch > 100 {
             global_trainingPaused = true
         }
         
-        
-        
-        
-        //fifo, store last 50 loss values
-        _last50Loss.removeFirst()
-        _last50Loss.append(_lossVal)
-        
-        
-        _last50Dist.removeFirst()
-        _last50Dist.append(_last50Loss.dist)
         
         
         if _showSpline {
@@ -144,6 +133,8 @@ class Scene: SKScene {
         let count = _last50Dist.count
         //make spline points
         var points = [CGPoint].init(count: count, repeatedValue: CGPointZero)
+        
+        
         
         for (idx,dist) in _last50Dist.enumerate() {
             

@@ -102,11 +102,12 @@ class NeuralNet {
         global_Epoch = UInt(epoch)
         
         
-        //set target for output layer
+        ///set target for output layer
         for idx in 0..<targets.count {
             let nn = outputLayer.neurons[idx]
             nn.setTarget(targets[idx])
         }
+        
         
         layers.last?.updateWeights()
         

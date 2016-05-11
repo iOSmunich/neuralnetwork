@@ -13,14 +13,15 @@ import SpriteKit
 
 // MARK: global vars
 
-var net_topology            = [20,20,20,20,20,20,5]
+var net_topology            = [20,20,5]
 let training_loop           = 1_000_000_000
 
 var global_learn_rate       = 0.01 as Double
 var global_momentum_rate    = 0.9 as Double
 var global_trainingPaused   = true
-var global_Err_Sum          = 0.0
+var global_Err_Sum          = 1.0
 var global_Epoch            = 0 as UInt
+var global_Regular          = 0.001 as Double
 
 
 @NSApplicationMain
@@ -64,16 +65,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return true
     }
     
-    
     func applicationDidFinishLaunching(notification: NSNotification) {
-        
+        let str:NSString = net_topology.description
+        let subStr = str.substringWithRange(NSMakeRange(1, str.length-2))
+        netToplogyField.stringValue = subStr
+
         newNet()
-        
     }
     
     
+    
     func newNet() {
-        
         
         
         global_Err_Sum          = 0
@@ -91,10 +93,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         _scene = Scene()
         _scene.scaleMode = .ResizeFill
         skView.presentScene(_scene)
-//        skView.showsFPS = true
-//        skView.showsQuadCount = true
-//        skView.showsNodeCount = true
-//        skView.showsDrawCount = true
+        
+        skView.ignoresSiblingOrder = true
+        skView.showsFPS = true
         
     }
     

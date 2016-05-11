@@ -108,8 +108,19 @@ class Neuron {
         bias += new_delta
         old_delta[old_delta.count-1] = new_delta
         
+        doRegularization()
     }
     
+    func doRegularization(){
+        for (idx,wVal) in weights.enumerate() {
+            if abs(wVal) < global_Regular {
+                weights[idx] = 0
+            }
+        }
+        if abs(bias) < global_Regular {
+            bias = 0
+        }
+    }
     
     
     //////////////////////////////////
